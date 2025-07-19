@@ -27,7 +27,6 @@ A new Flutter FFI plugin project.
   # s.resource_bundles = {'native_network_interface_privacy' => ['Resources/PrivacyInfo.xcprivacy']}
 
   # Add the vendored libraries for iOS and macOS
-  s.ios.vendored_libraries = 'Frameworks/libnetwork_interface.dylib'
   s.osx.vendored_libraries = 'Frameworks/libnetwork_interface.dylib'
 
   s.dependency 'FlutterMacOS'

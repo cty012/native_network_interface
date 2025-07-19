@@ -1,7 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'package:ffi/ffi.dart';
-// Import the generated bindings file
 import 'src/native_network_interface_bindings_generated.dart' show NativeNetworkInterfaceBindings, NativeNetworkInterface, NativeIPv4, NativeIPv6;
 
 // --- Your pure Dart classes remain the same ---
@@ -64,7 +63,9 @@ class NetworkManager {
     // The `ffiPlugin: true` flag in pubspec.yaml ensures that the native
     // library is bundled with the app and loaded into the process.
     // `DynamicLibrary.process()` gives us a handle to it.
-    final dylib = DynamicLibrary.process();
+    final dylib = Platform.isAndroid ?
+        DynamicLibrary.open('libnetwork_interface.so') :
+        DynamicLibrary.process();
     _bindings = NativeNetworkInterfaceBindings(dylib);
   }
 
@@ -100,7 +101,7 @@ class NetworkManager {
         for (int j = 0; j < ifaceC.ipv4_count; j++) {
           final ipv4C = (ifaceC.ipv4 + j).ref;
           ipv4s.add(IPv4(
-            ipv4C.ipv4_addr.toString(),
+            ipv4C.ipv4_addr.cast<Utf8>().toDartString(),
             ipv4C.prefix_length,
           ));
         }
@@ -110,7 +111,7 @@ class NetworkManager {
         for (int j = 0; j < ifaceC.ipv6_count; j++) {
           final ipv6C = (ifaceC.ipv6 + j).ref;
           ipv6s.add(IPv6(
-            ipv6C.ipv6_addr.toString(),
+            ipv6C.ipv6_addr.cast<Utf8>().toDartString(),
             ipv6C.prefix_length,
           ));
         }
@@ -124,8 +125,8 @@ class NetworkManager {
         // Add the final, converted Dart object to the list
         interfaces.add(NetworkInterface(
           index: ifaceC.index,
-          name: ifaceC.name.toString(),
-          description: ifaceC.description.toString(),
+          name: ifaceC.name.cast<Utf8>().toDartString(),
+          description: ifaceC.description.cast<Utf8>().toDartString(),
           ipv4Addresses: ipv4s,
           ipv6Addresses: ipv6s,
           macAddress: macString,

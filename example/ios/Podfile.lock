@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - native_network_interface (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - native_network_interface (from `.symlinks/plugins/native_network_interface/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  native_network_interface:
+    :path: ".symlinks/plugins/native_network_interface/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  native_network_interface: 3aedca1a32d8c6f1b653cc58a9c72c8b8f3c42f3
+
+PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
+
+COCOAPODS: 1.16.2

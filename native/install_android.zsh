@@ -13,14 +13,15 @@ mkdir -p bin/android/x86_64
 mkdir -p bin/android/x86
 
 # Move the dynamic libraries to the correct location
-mv build/android/arm64-v8a/libnetwork_interface.so \
-    bin/android/arm64-v8a/libnetwork_interface.so
+cp build/android/arm64-v8a/libnetwork_interface.so bin/android/arm64-v8a/
 
-mv build/android/armeabi-v7a/libnetwork_interface.so \
-    bin/android/armeabi-v7a/libnetwork_interface.so
+cp build/android/armeabi-v7a/libnetwork_interface.so bin/android/armeabi-v7a/
 
-mv build/android/x86_64/libnetwork_interface.so \
-    bin/android/x86_64/libnetwork_interface.so
+cp build/android/x86_64/libnetwork_interface.so bin/android/x86_64/
 
-mv build/android/x86/libnetwork_interface.so \
-    bin/android/x86/libnetwork_interface.so
+cp build/android/x86/libnetwork_interface.so bin/android/x86/
+
+# Copy the libraries to the Android project
+rm -rf ../android/src/main/jniLibs
+mkdir -p ../android/src/main/jniLibs
+cp -r bin/android/* ../android/src/main/jniLibs/
